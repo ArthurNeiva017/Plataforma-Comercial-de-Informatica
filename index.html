@@ -4,23 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema de Gestão Comercial</title>
+    <!-- Importa o arquivo de estilos CSS da aplicação -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+
+    <!-- ══════════════════════════════════════════════
+         TELA DE LOGIN / REGISTRO
+         Exibida antes do usuário autenticar.
+         Contém dois formulários: Login e Registro.
+         Apenas um deles fica visível por vez.
+    ══════════════════════════════════════════════ -->
     <section id="login-screen" class="login-screen">
       <div class="login-card">
+
+        <!-- Logo do sistema (iniciais "SG") -->
         <div class="login-logo">SG</div>
+
+        <!-- Título e descrição do card — atualizados via JS ao trocar de formulário -->
         <h1 id="login-card-title">Sistema de Gestão Comercial</h1>
         <p id="login-card-desc">Acesse o painel administrativo</p>
 
         <!-- Formulário de Login -->
         <form id="form-login" class="login-form">
+          <!-- Campo de e-mail do usuário -->
           <input
             type="text"
             id="login-usuario"
             placeholder="Usuário (E-mail)"
             required
           />
+          <!-- Campo de senha -->
           <input
             type="password"
             id="login-senha"
@@ -28,23 +42,27 @@
             required
           />
           <button type="submit">Entrar</button>
+          <!-- Link para alternar para o formulário de registro -->
           <p class="switch-auth-text">Ainda não tem conta? <a href="#" id="link-ir-registro">Cadastre-se</a></p>
         </form>
 
-        <!-- Formulário de Registro (Oculto por padrão) -->
+        <!-- Formulário de Registro (Oculto por padrão — a classe "hidden" é removida pelo JS) -->
         <form id="form-registro" class="login-form hidden">
+          <!-- Campo de nome completo do novo usuário -->
           <input
             type="text"
             id="registro-nome"
             placeholder="Nome Completo"
             required
           />
+          <!-- Campo de e-mail do novo usuário -->
           <input
             type="email"
             id="registro-usuario"
             placeholder="E-mail"
             required
           />
+          <!-- Campo de senha do novo usuário -->
           <input
             type="password"
             id="registro-senha"
@@ -52,15 +70,28 @@
             required
           />
           <button type="submit">Cadastrar</button>
+          <!-- Link para voltar ao formulário de login -->
           <p class="switch-auth-text">Já tem uma conta? <a href="#" id="link-ir-login">Entrar</a></p>
         </form>
         
+        <!-- Área de exibição de mensagens de erro de login/registro (preenchida pelo JS) -->
         <span id="login-erro" class="login-error"></span>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════════
+         TELA PRINCIPAL DO SISTEMA (PAINEL)
+         Oculta por padrão. Exibida após o login bem-sucedido.
+         Composta por uma sidebar de navegação e uma área de conteúdo principal.
+    ══════════════════════════════════════════════ -->
     <section id="app-screen" class="app-screen hidden">
+
+      <!-- ──────────────────────────────────────────────
+           SIDEBAR (Menu lateral fixo)
+           Contém a logo, a navegação entre seções e o botão de sair.
+      ────────────────────────────────────────────── -->
       <aside class="sidebar">
+        <!-- Logo e nome do sistema -->
         <div class="brand">
           <div class="logo">SG</div>
           <div>
@@ -69,6 +100,8 @@
           </div>
         </div>
 
+        <!-- Navegação: cada botão tem o atributo data-section
+             que o JS usa para saber qual seção exibir ao clicar -->
         <nav>
           <button class="nav-btn active" data-section="dashboard">
             Dashboard
@@ -78,19 +111,34 @@
           <button class="nav-btn" data-section="vendas">Vendas</button>
         </nav>
 
+        <!-- Botão de logout — o JS remove o token e volta à tela de login -->
         <button id="btn-sair" class="logout-btn">Sair</button>
       </aside>
 
+      <!-- ──────────────────────────────────────────────
+           ÁREA DE CONTEÚDO PRINCIPAL
+           Exibe o cabeçalho (topbar) e a seção ativa.
+      ────────────────────────────────────────────── -->
       <main class="content">
+
+        <!-- Cabeçalho fixo no topo do conteúdo principal -->
         <header class="topbar">
           <div>
+            <!-- Título da seção atual — atualizado pelo JS ao navegar -->
             <h2 id="page-title">Dashboard</h2>
             <p>Controle de clientes, produtos e vendas.</p>
           </div>
+          <!-- Badge de status da integração com o back-end -->
           <span class="status">Front-end preparado para API Spring</span>
         </header>
 
+        <!-- ══════════════════════════════════════════════
+             SEÇÃO: DASHBOARD
+             Exibida por padrão ao fazer login.
+             Mostra contadores resumidos de clientes, produtos e vendas.
+        ══════════════════════════════════════════════ -->
         <section id="dashboard" class="section active">
+          <!-- Cards de resumo — os valores são atualizados pelo JS -->
           <div class="cards">
             <div class="card">
               <span>Clientes</span><strong id="total-clientes">0</strong>
@@ -103,6 +151,7 @@
             </div>
           </div>
 
+          <!-- Painel de visão geral com descrição do sistema -->
           <div class="panel">
             <h3>Visão Geral</h3>
             <p>
@@ -113,10 +162,19 @@
           </div>
         </section>
 
+        <!-- ══════════════════════════════════════════════
+             SEÇÃO: CLIENTES
+             Permite cadastrar, editar e excluir clientes.
+             Oculta por padrão — exibida ao clicar em "Clientes" na sidebar.
+        ══════════════════════════════════════════════ -->
         <section id="clientes" class="section">
+          <!-- Painel com o formulário de cadastro/edição de clientes -->
           <div class="panel">
+            <!-- Título alterado pelo JS entre "Cadastrar Cliente" e "Alterar Cliente" -->
             <h3 id="titulo-form-cliente">Cadastrar Cliente</h3>
             <form id="form-cliente" class="form-grid">
+              <!-- Campo oculto que guarda o índice do cliente sendo editado.
+                   Vazio = modo criação | Com valor = modo edição -->
               <input type="hidden" id="cliente-index" />
               <input
                 type="text"
@@ -143,7 +201,9 @@
                 placeholder="Endereço"
                 required
               />
+              <!-- Botão principal: "Salvar Cliente" ou "Salvar Alterações" (alterado pelo JS) -->
               <button type="submit" id="btn-cliente">Salvar Cliente</button>
+              <!-- Botão cancelar: só aparece no modo de edição -->
               <button
                 type="button"
                 id="cancelar-cliente"
@@ -154,6 +214,7 @@
             </form>
           </div>
 
+          <!-- Painel com a tabela que lista todos os clientes cadastrados -->
           <div class="panel">
             <h3>Lista de Clientes</h3>
             <table>
@@ -167,15 +228,24 @@
                   <th>Ações</th>
                 </tr>
               </thead>
+              <!-- Corpo da tabela preenchido dinamicamente pelo JS -->
               <tbody id="lista-clientes"></tbody>
             </table>
           </div>
         </section>
 
+        <!-- ══════════════════════════════════════════════
+             SEÇÃO: PRODUTOS
+             Permite cadastrar, editar e excluir produtos.
+             Oculta por padrão — exibida ao clicar em "Produtos" na sidebar.
+        ══════════════════════════════════════════════ -->
         <section id="produtos" class="section">
+          <!-- Painel com o formulário de cadastro/edição de produtos -->
           <div class="panel">
+            <!-- Título alterado pelo JS entre "Cadastrar Produto" e "Alterar Produto" -->
             <h3 id="titulo-form-produto">Cadastrar Produto</h3>
             <form id="form-produto" class="form-grid">
+              <!-- Campo oculto que guarda o índice do produto sendo editado -->
               <input type="hidden" id="produto-index" />
               <input
                 type="text"
@@ -183,6 +253,7 @@
                 placeholder="Nome do produto"
                 required
               />
+              <!-- step="0.01" permite entrar valores decimais como 19.99 -->
               <input
                 type="number"
                 id="produto-preco"
@@ -196,7 +267,9 @@
                 placeholder="Estoque"
                 required
               />
+              <!-- Botão principal: "Salvar Produto" ou "Salvar Alterações" -->
               <button type="submit" id="btn-produto">Salvar Produto</button>
+              <!-- Botão cancelar: só aparece no modo de edição -->
               <button
                 type="button"
                 id="cancelar-produto"
@@ -207,6 +280,7 @@
             </form>
           </div>
 
+          <!-- Painel com a tabela que lista todos os produtos cadastrados -->
           <div class="panel">
             <h3>Lista de Produtos</h3>
             <table>
@@ -218,22 +292,33 @@
                   <th>Ações</th>
                 </tr>
               </thead>
+              <!-- Corpo da tabela preenchido dinamicamente pelo JS -->
               <tbody id="lista-produtos"></tbody>
             </table>
           </div>
         </section>
 
+        <!-- ══════════════════════════════════════════════
+             SEÇÃO: VENDAS
+             Permite registrar, editar e excluir vendas.
+             Oculta por padrão — exibida ao clicar em "Vendas" na sidebar.
+        ══════════════════════════════════════════════ -->
         <section id="vendas" class="section">
+          <!-- Painel com o formulário de registro/edição de vendas -->
           <div class="panel">
+            <!-- Título alterado pelo JS entre "Registrar Venda" e "Alterar Venda" -->
             <h3 id="titulo-form-venda">Registrar Venda</h3>
             <form id="form-venda" class="form-grid">
+              <!-- Campo oculto que guarda o índice da venda sendo editada -->
               <input type="hidden" id="venda-index" />
+              <!-- Nome do cliente (deve corresponder a um cliente cadastrado no sistema) -->
               <input
                 type="text"
                 id="venda-cliente"
                 placeholder="Cliente"
                 required
               />
+              <!-- Nome do produto (deve corresponder a um produto cadastrado no sistema) -->
               <input
                 type="text"
                 id="venda-produto"
@@ -246,7 +331,9 @@
                 placeholder="Quantidade"
                 required
               />
+              <!-- Botão principal: "Registrar Venda" ou "Salvar Alterações" -->
               <button type="submit" id="btn-venda">Registrar Venda</button>
+              <!-- Botão cancelar: só aparece no modo de edição -->
               <button
                 type="button"
                 id="cancelar-venda"
@@ -257,6 +344,7 @@
             </form>
           </div>
 
+          <!-- Painel com a tabela do histórico de vendas -->
           <div class="panel">
             <h3>Histórico de Vendas</h3>
             <table>
@@ -268,6 +356,7 @@
                   <th>Ações</th>
                 </tr>
               </thead>
+              <!-- Corpo da tabela preenchido dinamicamente pelo JS -->
               <tbody id="lista-vendas"></tbody>
             </table>
           </div>
@@ -275,6 +364,8 @@
       </main>
     </section>
 
+    <!-- Script principal da aplicação: carregado no final do body para garantir
+         que todos os elementos HTML já existam no DOM quando o JS for executado -->
     <script src="script.js"></script>
   </body>
 </html>

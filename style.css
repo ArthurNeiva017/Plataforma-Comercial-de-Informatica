@@ -1,51 +1,82 @@
+/* ══════════════════════════════════════════════
+   VARIÁVEIS GLOBAIS (Design Tokens)
+   Define as cores e valores reutilizáveis em todo o CSS.
+   Ao mudar aqui, a mudança reflete em todos os lugares que usam a variável.
+══════════════════════════════════════════════ */
 :root {
-  --bg: #f4f7fb;
-  --sidebar: #111827;
-  --primary: #2563eb;
-  --primary-dark: #1d4ed8;
-  --card: #ffffff;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --danger: #dc2626;
-  --warning: #f59e0b;
+  --bg: #f4f7fb;          /* Cor de fundo geral da aplicação (cinza azulado claro) */
+  --sidebar: #111827;     /* Cor de fundo da sidebar (quase preto) */
+  --primary: #2563eb;     /* Cor primária (azul) — usada em botões, links e destaques */
+  --primary-dark: #1d4ed8; /* Variante mais escura do azul primário — usada no hover */
+  --card: #ffffff;        /* Cor de fundo dos cards e painéis */
+  --text: #1f2937;        /* Cor principal do texto */
+  --muted: #6b7280;       /* Cor de texto secundário / desabilitado (cinza) */
+  --border: #e5e7eb;      /* Cor das bordas e divisores */
+  --danger: #dc2626;      /* Cor de perigo/exclusão (vermelho) */
+  --warning: #f59e0b;     /* Cor de aviso/edição (amarelo/âmbar) */
 }
 
+/* ══════════════════════════════════════════════
+   RESET GLOBAL
+   Garante que todos os elementos comecem sem margens,
+   paddings padrão do navegador e com box-sizing consistente.
+══════════════════════════════════════════════ */
 * {
-  box-sizing: border-box;
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura/altura */
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ══════════════════════════════════════════════
+   BODY
+   Define a cor de fundo e o texto padrão de toda a página.
+══════════════════════════════════════════════ */
 body {
-  min-height: 100vh;
+  min-height: 100vh; /* Garante que a página ocupe pelo menos a altura total da tela */
   background: var(--bg);
   color: var(--text);
 }
 
+/* ══════════════════════════════════════════════
+   UTILITÁRIO: HIDDEN
+   Oculta qualquer elemento. Usado pelo JS para alternar
+   a visibilidade de formulários, botões e seções.
+   O !important garante que não seja sobrescrito por outros estilos.
+══════════════════════════════════════════════ */
 .hidden {
   display: none !important;
 }
 
+/* ══════════════════════════════════════════════
+   TELA DE LOGIN
+   Ocupa a tela inteira e centraliza o card de login
+   com um gradiente de fundo escuro.
+══════════════════════════════════════════════ */
 .login-screen {
   min-height: 100vh;
   display: grid;
-  place-items: center;
+  place-items: center; /* Centraliza o card horizontal e verticalmente */
   padding: 24px;
-  background: linear-gradient(135deg, #111827, #1d4ed8);
+  background: linear-gradient(135deg, #111827, #1d4ed8); /* Gradiente diagonal escuro → azul */
 }
 
+/* ══════════════════════════════════════════════
+   CARD DE LOGIN
+   Container branco arredondado que envolve
+   o formulário de login/registro.
+══════════════════════════════════════════════ */
 .login-card {
   width: 100%;
-  max-width: 420px;
+  max-width: 420px;          /* Largura máxima para não ficar grande demais em telas largas */
   background: #fff;
   padding: 34px;
-  border-radius: 24px;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22);
+  border-radius: 24px;       /* Bordas bem arredondadas */
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.22); /* Sombra profunda para efeito de elevação */
   text-align: center;
 }
 
+/* Logo quadrada com as iniciais do sistema dentro do card de login */
 .login-logo {
   width: 64px;
   height: 64px;
@@ -53,62 +84,77 @@ body {
   color: #fff;
   border-radius: 18px;
   display: grid;
-  place-items: center;
+  place-items: center; /* Centraliza o texto "SG" */
   font-weight: bold;
   font-size: 22px;
-  margin: 0 auto 18px;
+  margin: 0 auto 18px; /* Centraliza horizontalmente e adiciona espaço abaixo */
 }
 
+/* Título principal dentro do card de login */
 .login-card h1 {
   font-size: 24px;
   margin-bottom: 8px;
 }
 
+/* Subtítulo/descrição dentro do card de login */
 .login-card p {
   color: var(--muted);
   margin-bottom: 22px;
 }
 
+/* Formulário de login: empilha os campos em coluna com espaçamento uniforme */
 .login-form {
   display: grid;
-  gap: 12px;
+  gap: 12px;           /* Espaço entre os campos do formulário */
   margin-bottom: 16px;
 }
 
+/* Texto auxiliar em tamanho pequeno dentro do card (para exibir credenciais, etc.) */
 .login-card small {
   display: block;
   color: var(--muted);
   margin-bottom: 10px;
 }
 
+/* Estilo da mensagem de erro exibida quando login falha */
 .login-error {
   display: block;
-  color: var(--danger);
+  color: var(--danger); /* Vermelho para indicar erro */
   font-size: 14px;
   font-weight: bold;
 }
 
+/* ══════════════════════════════════════════════
+   TELA DO APLICATIVO (PAINEL PRINCIPAL)
+   Layout flex que divide a tela entre sidebar e conteúdo.
+══════════════════════════════════════════════ */
 .app-screen {
   min-height: 100vh;
-  display: flex;
+  display: flex; /* Sidebar à esquerda, conteúdo à direita */
 }
 
+/* ══════════════════════════════════════════════
+   SIDEBAR (Menu lateral)
+   Fixada na lateral esquerda da tela com largura de 280px.
+══════════════════════════════════════════════ */
 .sidebar {
   width: 280px;
-  background: var(--sidebar);
+  background: var(--sidebar); /* Fundo escuro */
   color: #fff;
   padding: 24px;
-  position: fixed;
-  height: 100vh;
+  position: fixed;   /* Permanece visível mesmo ao rolar a página */
+  height: 100vh;     /* Altura total da viewport */
 }
 
+/* Container do logo + nome do sistema na sidebar */
 .brand {
   display: flex;
   gap: 12px;
   align-items: center;
-  margin-bottom: 36px;
+  margin-bottom: 36px; /* Espaço entre a marca e os itens de navegação */
 }
 
+/* Ícone quadrado com as iniciais "SG" na sidebar */
 .logo {
   width: 48px;
   height: 48px;
@@ -119,167 +165,222 @@ body {
   font-weight: bold;
 }
 
+/* Nome do sistema ao lado do logo */
 .brand h1 {
   font-size: 18px;
 }
 
+/* Subtítulo "Painel Administrativo" ao lado do logo */
 .brand span {
   font-size: 13px;
-  color: #9ca3af;
+  color: #9ca3af; /* Cinza claro sobre o fundo escuro */
 }
 
+/* ══════════════════════════════════════════════
+   NAVEGAÇÃO DA SIDEBAR
+   Botões empilhados verticalmente para navegar entre seções.
+══════════════════════════════════════════════ */
 nav {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Botões em coluna */
   gap: 10px;
 }
 
+/* Estilo base compartilhado entre botões de navegação e botão de logout */
 .nav-btn,
 .logout-btn {
   border: none;
   padding: 14px;
   border-radius: 12px;
-  background: transparent;
-  color: #d1d5db;
+  background: transparent; /* Sem fundo por padrão */
+  color: #d1d5db;          /* Texto cinza claro */
   text-align: left;
   cursor: pointer;
   font-size: 15px;
 }
 
+/* Estado hover e ativo: destaca o botão com a cor primária */
 .nav-btn:hover,
 .nav-btn.active {
-  background: var(--primary);
+  background: var(--primary); /* Azul quando selecionado ou hover */
   color: #fff;
 }
 
+/* Botão de logout posicionado no rodapé da sidebar */
 .logout-btn {
-  position: absolute;
+  position: absolute; /* Sai do fluxo normal e fica fixo no canto inferior */
   bottom: 24px;
   left: 24px;
   right: 24px;
-  background: #374151;
+  background: #374151; /* Cinza escuro como fundo padrão */
   text-align: center;
 }
 
+/* Hover do logout: vira vermelho para indicar ação destrutiva */
 .logout-btn:hover {
   background: var(--danger);
 }
 
+/* ══════════════════════════════════════════════
+   ÁREA DE CONTEÚDO PRINCIPAL
+   Ocupa o espaço restante após a sidebar.
+══════════════════════════════════════════════ */
 .content {
-  margin-left: 280px;
+  margin-left: 280px;             /* Desloca para não sobrepor a sidebar fixa */
   padding: 28px;
-  width: calc(100% - 280px);
+  width: calc(100% - 280px);      /* Ocupa o restante da largura da tela */
 }
 
+/* ══════════════════════════════════════════════
+   TOPBAR (Cabeçalho do conteúdo)
+   Barra branca no topo do conteúdo com o título da seção e o status.
+══════════════════════════════════════════════ */
 .topbar {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 22px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Título à esquerda, status à direita */
   align-items: center;
   margin-bottom: 24px;
 }
 
+/* Título da seção atual exibido na topbar */
 .topbar h2 {
   font-size: 26px;
   margin-bottom: 6px;
 }
 
+/* Subtítulo/descrição abaixo do título na topbar */
 .topbar p {
   color: var(--muted);
 }
 
+/* Badge de status — exibido como pílula azul no canto direito da topbar */
 .status {
-  background: #dbeafe;
+  background: #dbeafe;            /* Azul bem claro */
   color: var(--primary-dark);
   padding: 10px 14px;
-  border-radius: 999px;
+  border-radius: 999px;           /* Bordas totalmente arredondadas (formato pílula) */
   font-size: 13px;
   font-weight: bold;
 }
 
+/* ══════════════════════════════════════════════
+   SEÇÕES DE CONTEÚDO
+   Cada seção (dashboard, clientes, produtos, vendas)
+   fica oculta por padrão. Só a que tem "active" é exibida.
+══════════════════════════════════════════════ */
 .section {
-  display: none;
+  display: none; /* Oculto por padrão */
 }
 
 .section.active {
-  display: block;
+  display: block; /* Exibido quando o JS adiciona a classe "active" */
 }
 
+/* ══════════════════════════════════════════════
+   CARDS DO DASHBOARD
+   Grid de 3 colunas iguais para os cards de resumo.
+══════════════════════════════════════════════ */
 .cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas de tamanho igual */
   gap: 18px;
   margin-bottom: 24px;
 }
 
+/* ══════════════════════════════════════════════
+   CARD E PAINEL
+   Estilo branco com borda e sombra suave, compartilhado
+   entre os cards de dashboard e os painéis de formulário/tabela.
+══════════════════════════════════════════════ */
 .card,
 .panel {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 22px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04); /* Sombra suave */
 }
 
+/* Rótulo (label) do card — ex: "Clientes", "Produtos" */
 .card span {
   color: var(--muted);
   font-size: 14px;
 }
 
+/* Número grande que mostra o total no card do dashboard */
 .card strong {
   display: block;
   font-size: 34px;
   margin-top: 10px;
 }
 
+/* Espaçamento inferior entre painéis empilhados */
 .panel {
   margin-bottom: 22px;
 }
 
+/* Título dos painéis de formulário/tabela */
 .panel h3 {
   margin-bottom: 16px;
 }
 
+/* Texto descritivo dentro de painéis */
 .panel p {
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.6; /* Espaçamento entre linhas para melhor legibilidade */
 }
 
+/* ══════════════════════════════════════════════
+   FORMULÁRIOS (form-grid)
+   Layout em grid com 5 colunas para os campos dos formulários
+   de cliente, produto e venda.
+══════════════════════════════════════════════ */
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr); /* 5 colunas iguais para os campos */
   gap: 12px;
 }
 
+/* ══════════════════════════════════════════════
+   INPUTS (campos de texto/número/email)
+══════════════════════════════════════════════ */
 input {
   padding: 13px;
   border: 1px solid var(--border);
   border-radius: 12px;
-  outline: none;
+  outline: none;    /* Remove o outline padrão do navegador */
   font-size: 14px;
 }
 
+/* Destaca o campo com borda azul quando está em foco */
 input:focus {
   border-color: var(--primary);
 }
 
+/* ══════════════════════════════════════════════
+   BOTÕES
+   Estilo base compartilhado por todos os botões da aplicação.
+══════════════════════════════════════════════ */
 button {
   border: none;
   border-radius: 12px;
-  background: var(--primary);
+  background: var(--primary); /* Azul por padrão */
   color: white;
   font-weight: bold;
   cursor: pointer;
   padding: 13px;
 }
 
+/* Escurece o botão ao passar o mouse */
 button:hover {
   background: var(--primary-dark);
 }
 
+/* ── Variante: Botão secundário (cinza) ── usado no "Cancelar" */
 .btn-secondary {
   background: #6b7280;
 }
@@ -288,75 +389,94 @@ button:hover {
   background: #4b5563;
 }
 
+/* ── Variante: Botão de perigo (vermelho) ── usado no "Excluir" */
 .btn-danger {
   background: var(--danger);
-  padding: 8px 12px;
+  padding: 8px 12px; /* Menor que o botão padrão (inline na tabela) */
 }
 
 .btn-danger:hover {
   background: #b91c1c;
 }
 
+/* ── Variante: Botão de edição (âmbar/amarelo) ── usado no "Alterar" */
 .btn-edit {
   background: var(--warning);
   padding: 8px 12px;
-  margin-right: 8px;
+  margin-right: 8px; /* Espaço entre os botões "Alterar" e "Excluir" */
 }
 
 .btn-edit:hover {
   background: #d97706;
 }
 
+/* ══════════════════════════════════════════════
+   TABELAS
+   Estilo para as listas de clientes, produtos e vendas.
+══════════════════════════════════════════════ */
 table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: collapse; /* Remove o espaço duplo entre bordas de células */
 }
 
+/* Células do cabeçalho e do corpo da tabela */
 th,
 td {
   padding: 14px;
   text-align: left;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); /* Linha divisória entre as linhas */
 }
 
+/* Cabeçalho da tabela em cinza e tamanho menor */
 th {
   color: var(--muted);
   font-size: 14px;
 }
 
+/* Célula de estado vazio — exibida quando não há dados cadastrados */
 .empty {
   color: var(--muted);
   text-align: center;
   padding: 20px;
 }
 
+/* ══════════════════════════════════════════════
+   RESPONSIVIDADE
+   Adapta o layout para telas menores que 900px (tablets/celulares).
+══════════════════════════════════════════════ */
 @media (max-width: 900px) {
+  /* Empilha sidebar e conteúdo verticalmente */
   .app-screen {
     flex-direction: column;
   }
 
+  /* Sidebar ocupa a largura total e não é mais fixa */
   .sidebar {
-    position: static;
+    position: static; /* Volta ao fluxo normal do documento */
     width: 100%;
     height: auto;
   }
 
+  /* Botão de logout volta ao fluxo normal */
   .logout-btn {
     position: static;
     width: 100%;
     margin-top: 18px;
   }
 
+  /* Conteúdo principal ocupa a largura total */
   .content {
     margin-left: 0;
     width: 100%;
   }
 
+  /* Cards e formulários passam para uma coluna única em telas pequenas */
   .cards,
   .form-grid {
     grid-template-columns: 1fr;
   }
 
+  /* Topbar empilha título e status verticalmente */
   .topbar {
     flex-direction: column;
     align-items: flex-start;
@@ -364,18 +484,24 @@ th {
   }
 }
 
+/* ══════════════════════════════════════════════
+   LINK DE ALTERNAR ENTRE LOGIN E REGISTRO
+   Texto com link azul para trocar entre os formulários.
+══════════════════════════════════════════════ */
 .switch-auth-text {
   font-size: 14px;
   color: var(--muted);
   margin-top: 10px;
 }
 
+/* Link dentro do texto de alternância */
 .switch-auth-text a {
   color: var(--primary);
   text-decoration: none;
   font-weight: bold;
 }
 
+/* Sublinha o link ao passar o mouse para indicar clicabilidade */
 .switch-auth-text a:hover {
   text-decoration: underline;
 }
