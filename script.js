@@ -7,11 +7,88 @@ let vendas = [];
 const loginScreen = document.getElementById("login-screen");
 const appScreen = document.getElementById("app-screen");
 const formLogin = document.getElementById("form-login");
+const formRegistro = document.getElementById("form-registro");
 const loginErro = document.getElementById("login-erro");
+const loginCardTitle = document.getElementById("login-card-title");
+const loginCardDesc = document.getElementById("login-card-desc");
+const loginCredentials = document.getElementById("login-credentials");
+
+const linkIrRegistro = document.getElementById("link-ir-registro");
+const linkIrLogin = document.getElementById("link-ir-login");
 
 const sections = document.querySelectorAll(".section");
 const navButtons = document.querySelectorAll(".nav-btn");
 const pageTitle = document.getElementById("page-title");
+
+// Alternar para tela de Registro
+linkIrRegistro.addEventListener("click", (event) => {
+  event.preventDefault();
+  formLogin.classList.add("hidden");
+  formRegistro.classList.remove("hidden");
+  loginCardTitle.textContent = "Criar Nova Conta";
+  loginCardDesc.textContent = "Preencha os campos para se cadastrar";
+  loginCredentials.classList.add("hidden");
+  loginErro.textContent = "";
+});
+
+// Alternar para tela de Login
+linkIrLogin.addEventListener("click", (event) => {
+  event.preventDefault();
+  formRegistro.classList.add("hidden");
+  formLogin.classList.remove("hidden");
+  loginCardTitle.textContent = "Sistema de Gestão Comercial";
+  loginCardDesc.textContent = "Acesse o painel administrativo";
+  loginCredentials.classList.remove("hidden");
+  loginErro.textContent = "";
+});
+
+// Evento de Submissão do Registro
+formRegistro.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const nome = document.getElementById("registro-nome").value;
+  const email = document.getElementById("registro-usuario").value;
+  const password = document.getElementById("registro-senha").value;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nome: nome,
+        email: email,
+        password: password,
+      }),
+    });
+
+    if (response.status === 201 || response.status === 200) {
+      alert("Usuário cadastrado com sucesso! Agora você pode fazer login.");
+      formRegistro.reset();
+      formRegistro.classList.add("hidden");
+      formLogin.classList.remove("hidden");
+      loginCardTitle.textContent = "Sistema de Gestão Comercial";
+      loginCardDesc.textContent = "Acesse o painel administrativo";
+      loginCredentials.classList.remove("hidden");
+      loginErro.textContent = "";
+    } else if (response.status === 409) {
+      loginErro.textContent = "Erro: Este e-mail já está cadastrado.";
+    } else {
+      loginErro.textContent = "Erro ao registrar usuário. Tente novamente.";
+    }
+  } catch (e) {
+    console.error("Erro ao conectar com API para registro:", e);
+    alert("Modo offline: Usuário registrado localmente (simulado).");
+    formRegistro.reset();
+    formRegistro.classList.add("hidden");
+    formLogin.classList.remove("hidden");
+    loginCardTitle.textContent = "Sistema de Gestão Comercial";
+    loginCardDesc.textContent = "Acesse o painel administrativo";
+    loginCredentials.classList.remove("hidden");
+    loginErro.textContent = "";
+  }
+});
 
 formLogin.addEventListener("submit", async (event) => {
   event.preventDefault();

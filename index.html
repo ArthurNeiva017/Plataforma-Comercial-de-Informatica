@@ -10,14 +10,15 @@
     <section id="login-screen" class="login-screen">
       <div class="login-card">
         <div class="login-logo">SG</div>
-        <h1>Sistema de Gestão Comercial</h1>
-        <p>Acesse o painel administrativo</p>
+        <h1 id="login-card-title">Sistema de Gestão Comercial</h1>
+        <p id="login-card-desc">Acesse o painel administrativo</p>
 
+        <!-- Formulário de Login -->
         <form id="form-login" class="login-form">
           <input
             type="text"
             id="login-usuario"
-            placeholder="Usuário"
+            placeholder="Usuário (E-mail)"
             required
           />
           <input
@@ -27,10 +28,32 @@
             required
           />
           <button type="submit">Entrar</button>
+          <p class="switch-auth-text">Ainda não tem conta? <a href="#" id="link-ir-registro">Cadastre-se</a></p>
         </form>
 
-        <small
-          
+        <!-- Formulário de Registro (Oculto por padrão) -->
+        <form id="form-registro" class="login-form hidden">
+          <input
+            type="text"
+            id="registro-nome"
+            placeholder="Nome Completo"
+            required
+          />
+          <input
+            type="email"
+            id="registro-usuario"
+            placeholder="E-mail"
+            required
+          />
+          <input
+            type="password"
+            id="registro-senha"
+            placeholder="Senha"
+            required
+          />
+          <button type="submit">Cadastrar</button>
+          <p class="switch-auth-text">Já tem uma conta? <a href="#" id="link-ir-login">Entrar</a></p>
+        </form>
         >
         <span id="login-erro" class="login-error"></span>
       </div>

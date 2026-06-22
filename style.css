@@ -363,3 +363,19 @@ th {
     gap: 12px;
   }
 }
+
+.switch-auth-text {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.switch-auth-text a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.switch-auth-text a:hover {
+  text-decoration: underline;
+}
